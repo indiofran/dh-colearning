@@ -1,13 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-
-const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
-const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+//Se escribe en mayuscula porque para diferenciar que es un "modelo"
+const Products = require('../models/product.js')
 
 const controller = {
 	index: (req, res) => {
+		const products = Products.getAll()
 		let visited = products.filter(elem => elem.category === 'visited');
 		let sales=  products.filter(elem => elem.category === 'in-sale');
 		res.render('index', {'visited':visited,'sales':sales});
