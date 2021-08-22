@@ -23,7 +23,7 @@ const controller = {
 
 	// Create - Form to create
 	create: (req, res) => {
-		res.render('product-create-form');
+		res.render('product-form');
 	},
 	
 	// Create -  Method to store
@@ -46,7 +46,7 @@ const controller = {
 	// Update - Form to edit
 	edit: (req, res) => {
 		let product = Products.findById(req.params.id)
-		res.render('product-edit-form',{
+		res.render('product-form',{
 			productToEdit: product
 		});
 	},
