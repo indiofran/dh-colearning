@@ -1,6 +1,7 @@
 // ************ Require's ************
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const express = require('express');
 const logger = require('morgan');
 const path = require('path');
@@ -16,7 +17,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method')); // Pasar poder pisar el method="POST" en el formulario por PUT y DELETE
-
+app.use(bodyParser.urlencoded({ extended: true })); //para poder aceptar arrays en request
 // ************ Template Engine - (don't touch) ************
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views')); // Define la ubicación de la carpeta de las Vistas

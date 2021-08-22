@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', {title: 'Todos los productos'}) %>
+<body>
+<!-- Header -->
+<%- include('partials/headerNavbar') %>
+<!-- /Header -->
+
+<!-- todos los productos -->
+<div class="container products-wrapper">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="products-title">Todos los productos</h2>
+		</div>
+		<!--Notar que la url de la vista y la de eleminacion es la misma
+		Es decir que solo quiero agregarle a la url actual un parametro por eso no uso /products/delete?...
+
+		-->
+		<form action="?_method=delete" method="POST">
+			<%products.forEach(elem =>{%>
+			<p>
+				<input id="product-<%=elem.id%>" type="checkbox" value="<%=elem.id%>" name="ids"/>
+				<label for="product-<%=elem.id%>" > <%=elem.name%> </label>
+			</p>
+			<%})%>
+			<button type="submit"> Borrar Seleccionados</button>
+		</form>
+	</div>
+</div>
+<!-- /todos los productos -->
+
+<!-- footer -->
+<%- include('partials/footer') %>
+<!-- /footer -->
+</body>
+</html>

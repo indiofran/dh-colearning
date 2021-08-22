@@ -78,12 +78,14 @@ const controller = {
 		Products.modifiedAll(products_copy);
 		res.redirect('/');
 	},
+	deleteForm:  (req, res) => {
+		res.render('products-delete-form', {products:Products.getAll()})
+	},
 	deleteVarius:  (req, res) => {
-		const ids = req.body.ids
-		let products_copy = Products.getAll().filter(elem => {
-			ids.filter(id => id == elem.id).length === 0
-		});
+		const ids = req.body.ids.map(elem=> Number(elem))
+		let products_copy = Products.getAll().filter(item => !ids.includes(item.id));
 		Products.modifiedAll(products_copy);
+		res.redirect('/products/delete')
 	}
 };
 

@@ -24,6 +24,7 @@ router.put('/edit/:id/', productsController.update);
 /*** DELETE ONE PRODUCT ***/ 
 router.delete('/delete/:id/', productsController.destroy);
 /*** DELETE A LOT PRODUCT ***/
+router.get('/delete/', productsController.deleteForm);
 router.delete('/delete/', productsController.deleteVarius);
 
 
