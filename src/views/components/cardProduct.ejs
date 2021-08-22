@@ -8,7 +8,7 @@
                 <h2>$<%= (item.price * (1-(item.discount/100))).toLocaleString("es",{minimumFractionDigits: 2})%></h2>
                 <span><%=item.discount%>% OFF</span>
                 <p>
-                    <%item.name%>
+                    <%=item.name%>
                 </p>
                 <i class="fas fa-truck"></i>
             </article>

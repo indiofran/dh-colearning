@@ -15,6 +15,9 @@ const products = {
     },
     modifiedAll: (data)=>{
         fs.writeFileSync(productsFilePath, JSON.stringify(data))
+    },
+    searchByName:(stringToSearch) => {
+        return data.filter(elem => elem.name.includes(stringToSearch))
     }
 }
 

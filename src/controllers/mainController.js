@@ -9,7 +9,14 @@ const controller = {
 		res.render('index', {'visited':visited,'sales':sales});
 	},
 	search: (req, res) => {
-		res.render('results')
+		//No optimizado (Case sensitive)
+		let keywords = req.query.keywords
+		const products = Products.searchByName(keywords)
+		res.render('results',
+			{
+				keywords: keywords,
+				products: products
+			})
 	},
 };
 
