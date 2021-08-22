@@ -16,7 +16,7 @@ const controller = {
 				product: product,
 			});
 		}else{
-			res.redirect('/404');
+			res.redirect('/404')
 		}
 
 	},
