@@ -37,6 +37,7 @@ const controller = {
 			description: req.body.description,
 			category: req.body.category,
 			discount: req.body.discount,
+			image: req.file.filename,
 		}
 		products_copy.push(product)
 		Products.modifiedAll(products_copy);
@@ -59,6 +60,8 @@ const controller = {
 					product.description = req.body.description
 					product.category = req.body.category
 					product.discount = req.body.discount
+					product.image = req.file ?  req.file.filename : product.image
+
 				}
 				return product;
 			});
