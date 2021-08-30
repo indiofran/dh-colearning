@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <!-- Include Head -->
-	<%- include('partials/head', {title: 'Log IN'}) %>
+<%- include('partials/head', {title: 'Log IN'}) %>
 <body>
 <!-- Header -->
 <%- include('partials/headerNavbar') %>
@@ -10,26 +10,29 @@
 <div class="container products-wrapper">
 	<div class="row">
 		<div class="col-12">
-				<h2 class="products-title">Log In</h2>
+			<h2 class="products-title">Log In</h2>
 		</div>
 	</div>
 	<div class="col-12">
-			<form action="/users/login" method="POST">
-				<div class="row product-detail">
-					<div class="col-12 col-md-6">
-						<label for="email" class="form-label">Email:</label>
-						<input type="text" id="email" name="email" placeholder="example@gmail.com" class="form-input">
-					</div>
-					<div class="col-12 col-md-6">
-						<label for="password" class="form-label">Contraseña:</label>
-						<input type="password" id="password" name="password" placeholder="Contraseña" class="form-input">
-					</div>
-					<div class="col-12">
-							<button type="submit" class="buy-now-button">Log in</button>
-					</div>
+		<form action="/users/login" method="POST">
+			<div class="row product-detail">
+				<div class="col-12 col-md-6">
+					<label for="email" class="form-label">Email:</label>
+					<input type="text" id="email" name="email" placeholder="example@gmail.com" class="form-input">
 				</div>
-			</form>
-		<%= locals.errors ? errors : ''%>
+				<div class="col-12 col-md-6">
+					<label for="password" class="form-label">Contraseña:</label>
+					<input type="password" id="password" name="password" placeholder="Contraseña" class="form-input">
+				</div>
+				<div class="col-12 col-md-6">
+					<h2 style="color: red"><%= locals.errors ? errors : ''%></h2>
+				</div>
+				<div class="col-12">
+					<button type="submit" class="buy-now-button">Log in</button>
+				</div>
+			</div>
+		</form>
+
 	</div>
 
 </div>
