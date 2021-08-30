@@ -1,5 +1,6 @@
 //Se escribe en mayuscula porque para diferenciar que es un "modelo"
 const Products = require('../models/product.js')
+const {validationResult} = require("express-validator");
 
 const controller = {
 	// Root - Show all products
@@ -11,13 +12,9 @@ const controller = {
 	// Detail - Detail from one product
 	detail: (req, res) => {
 		let product = Products.findById(req.params.id)
-		if(product){
 			res.render('detail',{
 				product: product,
-			});
-		}else{
-			res.redirect('/404')
-		}
+			})
 
 	},
 
@@ -28,20 +25,26 @@ const controller = {
 	
 	// Create -  Method to store
 	store: (req, res) => {
-		let products_copy = Products.getAll().map(product => product);
-		let productId = products_copy.length === 0 ? 1 :  products_copy[products_copy.length-1].id + 1
-		product = {
-			id: productId,
-			name: req.body.name,
-			price: req.body.price,
-			description: req.body.description,
-			category: req.body.category,
-			discount: req.body.discount,
-			image: req.file.filename,
+		let errors = validationResult(req)
+		console.log(errors)
+		if(errors.isEmpty()){
+			let products_copy = Products.getAll().map(product => product);
+			let productId = products_copy.length === 0 ? 1 :  products_copy[products_copy.length-1].id + 1
+			product = {
+				id: productId,
+				name: req.body.name,
+				price: req.body.price,
+				description: req.body.description,
+				category: req.body.category,
+				discount: req.body.discount,
+				image: req.file.filename,
+			}
+			products_copy.push(product)
+			Products.modifiedAll(products_copy);
+			res.redirect('/');
+		}else{
+			res.render('product-form', {errors: errors.array(), productToEdit:req.body})
 		}
-		products_copy.push(product)
-		Products.modifiedAll(products_copy);
-		res.redirect('/');
 	},
 
 	// Update - Form to edit

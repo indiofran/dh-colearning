@@ -24,22 +24,22 @@ app.set('views', path.join(__dirname, '/views')); // Define la ubicación de la 
 
 
 
+
 // ************ WRITE YOUR CODE FROM HERE ************
 // ************ Route System require and use() ************
 const mainRouter = require('./routes/main'); // Rutas main
 const productsRouter = require('./routes/products'); // Rutas /products
-const errorRouter = require('./routes/errorCode'); // Ruta
 
 app.use('/', mainRouter);
 app.use('/products', productsRouter);
-app.use('/', errorRouter);
 
 
 
-
-// ************ DON'T TOUCH FROM HERE ************
-// ************ catch 404 and forward to error handler ************
-app.use((req, res, next) => next(createError(404)));
+// ************ Middlewares ************
+app.use((req,res,next)=>{
+  res.status(404).render('404')
+  next();
+})
 
 // ************ error handler ************
 app.use((err, req, res, next) => {
@@ -52,6 +52,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 // ************ exports app - dont'touch ************
 module.exports = app;

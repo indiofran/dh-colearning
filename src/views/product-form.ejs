@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <!-- Include Head -->
-<% if(typeof productToEdit !== 'undefined'){%>
+<% if(typeof productToEdit !== 'undefined' && typeof productToEdit.id !== 'undefined'){%>
 	<%- include('partials/head', {title: 'Editando: ' + productToEdit.name}) %>
 <%}else{%>
 	<%- include('partials/head', {title: 'Formulario de creación'}) %>
@@ -14,7 +14,7 @@
 <div class="container products-wrapper">
 	<div class="row">
 		<div class="col-12">
-			<% if(typeof productToEdit !== 'undefined'){%>
+			<% if(typeof productToEdit !== 'undefined' && typeof productToEdit.id !== 'undefined'){%>
 				<h2 class="products-title">Estás editando: <i><%= productToEdit.name %></i></h2>
 			<%}else{%>
 				<h2 class="products-title">Formulario de creación de productos</h2>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="col-12">
-		<% if(typeof productToEdit !== 'undefined'){%>
+		<% if(typeof productToEdit !== 'undefined' && typeof productToEdit.id !== 'undefined'){%>
 			<form action="/products/edit/<%= productToEdit.id %>?_method=PUT" method="POST" enctype="multipart/form-data" >
 		<%}else{%>
 			<form action="/products/create" method="POST" enctype="multipart/form-data">
@@ -55,8 +55,19 @@
 					<div class="col-6">
 						<input type="file" name="image" id="file">
 					</div>
+
+					<%if(locals.errors){%>
 					<div class="col-12">
-						<% if(typeof productToEdit !== 'undefined'){%>
+						<div class="alert alert-danger" role="alert">
+							<% errors.forEach(elem =>{%>
+							<p><%=elem.param%>:  <%=elem.msg%> </p>
+							<%})%>
+						</div>
+					</div>
+					<%}%>
+
+					<div class="col-12">
+						<% if(typeof productToEdit !== 'undefined' && typeof productToEdit.id !== 'undefined'){%>
 							<button type="submit" class="buy-now-button">Guardar producto</button>
 						<%}else{%>
 							<button type="submit" class="buy-now-button">Crear producto</button>
