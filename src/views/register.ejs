@@ -17,22 +17,40 @@
 	<div class="col-12">
 			<form action="/users/register" method="POST">
 				<div class="row product-detail">
-					<div class="col-12 col-md-6">
+					<div class="col-12 col-md-4">
 						<label for="name" class="form-label">Nombre Completo:</label>
 						<input type="text" id="name" name="name" placeholder="Juan Perez" class="form-input">
 					</div>
-					<div class="col-12 col-md-6">
+					<div class="col-12 col-md-4">
 						<label for="email" class="form-label">email:</label>
 						<input type="email" id="email" name="email"  placeholder="35" class="form-input">
 					</div>
-					<div class="col-12 col-md-6">
+					<div class="col-12 col-md-4">
 						<label for="age" class="form-label">Edad:</label>
 						<input type="number" id="age" name="age"  placeholder="35" class="form-input">
+					</div>
+					<div class="col-12 col-md-12">
+						<p >
+							Minimo 8 caracteres</p>
+						<p >Maximo 15</p>
+						<p >Al menos una letra mayúscula</p>
+						<p >Al menos una letra minucula</p>
+						<p >Al menos un dígito</p>
+						<p >No espacios en blanco</p>
+						<p >Al menos 1 caracter especial</p>
 					</div>
 					<div class="col-12 col-md-6">
 						<label for="password" class="form-label">Contraseña:</label>
 						<input type="password" id="password" name="password" placeholder="Contraseña" class="form-input">
 					</div>
+					<div class="col-12 col-md-6">
+						<label for="confirm_password" class="form-label">Confirmar Contraseña:</label>
+						<input type="password" id="password" name="confirm_password" placeholder="Contraseña" class="form-input">
+					</div>
+					<div class="col-12 col-md-6">
+						<h2 style="color: red"><%= locals.errors ? errors : ''%></h2>
+					</div>
+
 					<div class="col-12">
 							<button type="submit" class="buy-now-button">Registarse</button>
 					</div>

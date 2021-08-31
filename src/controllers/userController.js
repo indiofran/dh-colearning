@@ -3,6 +3,17 @@ const Users = require('../models/user.js');
 const { v4: uuidv4 } = require('uuid');
 const bcryptjs = require('bcryptjs');
 
+/*
+    Minimo 8 caracteres
+    Maximo 15
+    Al menos una letra mayúscula
+    Al menos una letra minucula
+    Al menos un dígito
+    No espacios en blanco
+    Al menos 1 caracter especial
+*/
+const secure_password =new RegExp( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/);
+
 
 const controller = {
 
@@ -23,17 +34,27 @@ const controller = {
     store: (req, res)   => {
         let users_copy = Users.getAll().map(product => product);
         let UserId = uuidv4();
-        const encrypt_pass = bcryptjs.hashSync(req.body.password, 10)
-        const user = {
-            id: UserId,
-            name: req.body.name,
-            email: req.body.email,
-            age: req.body.age,
-            password: encrypt_pass,
+        if(req.body.password === req.body.confirm_password){
+            if(secure_password.test(req.body.password)){
+                const encrypt_pass = bcryptjs.hashSync(req.body.password, 10)
+                const user = {
+                    id: UserId,
+                    name: req.body.name,
+                    email: req.body.email,
+                    age: req.body.age,
+                    password: encrypt_pass,
+                }
+                users_copy.push(user)
+                Users.modifiedAll(users_copy);
+                res.redirect('/');
+            }else{
+                res.render('register', {errors:'Contraseña no segura'})
+            }
+
+        }else{
+            res.render('register', {errors:'Contraseña no Coicide'})
         }
-        users_copy.push(user)
-        Users.modifiedAll(users_copy);
-        res.redirect('/');
+
     },
     showLogin: (req, res)=>{
         res.render('login');
