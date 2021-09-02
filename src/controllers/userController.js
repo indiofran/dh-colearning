@@ -44,6 +44,7 @@ const controller = {
                     age: req.body.age,
                     password: encrypt_pass,
                 }
+                console.log(user.id);
                 users_copy.push(user)
                 Users.modifiedAll(users_copy);
                 res.redirect('/');
